@@ -3,7 +3,7 @@
  */
 
 // Import the function (adds to Array.prototype)
-require('./toSingleType.js');
+require('../src/toSingleType.js');
 
 // ============ TEST RUNNER ============
 

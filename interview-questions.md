@@ -2,9 +2,16 @@
 
 ## Coding Question
 
-> **Create an Array prototype function that converts mixed-type arrays to a single type.**  
-> Priority: array > object > primitives. Use "Yes"/"No" as boolean indicators.  
-> Return the converted array with a `getType()` method that returns the dominant type.
+> **Create an Array prototype function `toSingleType()` that converts mixed-type arrays to a single type.**
+>
+> **Requirements:**
+> 1. Priority: array > object > primitives (boolean/number/string based on conditions)
+> 2. For objects: all converted objects must use the same key (from the first object found)
+> 3. Semantic conversion: "Yes"/"No" strings should convert to `true`/`false`
+> 4. If numbers > 1 exist → convert to number; else if boolean exists → convert to boolean
+> 5. Return the converted array with:
+>    - `getType()` → returns the dominant type name
+>    - `getSchema()` → returns JSON Schema (draft-07) for the result
 
 ---
 
