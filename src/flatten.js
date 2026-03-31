@@ -82,21 +82,27 @@ Array.prototype.deepFlatten = function(maxDepth = Infinity, options = {}) {
  * flattenWithCallback - flatten with transformation
  */
 Array.prototype.flatMapDeep = function(callback, maxDepth = Infinity) {
-    function flatMap(arr, depth) {
-        const result = [];
-        for (let i = 0; i < arr.length; i++) {
-            const item = arr[i];
-            const mapped = callback(item, i, arr);
-            
-            if (Array.isArray(mapped) && depth < maxDepth) {
-                result.push(...flatMap(mapped, depth + 1));
-            } else {
-                result.push(mapped);
+    const self = this;
+    
+    function processItem(item, index, arr, depth) {
+        // First flatten if it's an array
+        if (Array.isArray(item) && depth < maxDepth) {
+            const result = [];
+            for (let i = 0; i < item.length; i++) {
+                result.push(...processItem(item[i], i, item, depth + 1));
             }
+            return result;
         }
-        return result;
+        // Then apply callback to non-array items
+        const mapped = callback(item, index, arr);
+        return Array.isArray(mapped) ? mapped : [mapped];
     }
-    return flatMap(this, 0);
+    
+    const result = [];
+    for (let i = 0; i < this.length; i++) {
+        result.push(...processItem(this[i], i, this, 0));
+    }
+    return result;
 };
 
 /**

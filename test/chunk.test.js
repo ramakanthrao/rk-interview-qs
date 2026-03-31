@@ -90,9 +90,10 @@ runTest('Overlapping chunks', () => {
     return JSON.stringify(result) === '[[1,2,3],[3,4,5]]';
 }) ? passed++ : failed++;
 
-runTest('Overlapping chunks with remainder', () => {
+runTest('Overlapping chunks drops partial by default', () => {
     const result = [1, 2, 3, 4, 5, 6].chunk(3, { overlap: 1 });
-    return result.length === 3 && result[2].includes(5);
+    // Should be 2 full chunks, partial [5,6] dropped
+    return result.length === 2 && JSON.stringify(result) === '[[1,2,3],[3,4,5]]';
 }) ? passed++ : failed++;
 
 runTest('Overlap of 2', () => {

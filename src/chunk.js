@@ -44,7 +44,8 @@ Array.prototype.chunk = function(size, options = {}) {
         
         // Handle incomplete chunks
         if (chunk.length < size) {
-            if (dropRemainder) {
+            // With overlap, drop partial chunks by default (sliding window behavior)
+            if (dropRemainder || (overlap > 0 && pad === undefined)) {
                 continue;
             }
             if (pad !== undefined) {

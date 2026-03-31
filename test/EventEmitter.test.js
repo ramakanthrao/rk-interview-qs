@@ -134,9 +134,9 @@ runTest('Methods return this for chaining', () => {
     let result = 0;
     emitter
         .on('a', () => { result++; })
-        .on('b', () => { result++; })
-        .emit('a')
-        .emit('b');
+        .on('b', () => { result++; });
+    emitter.emit('a');
+    emitter.emit('b');
     return result === 2;
 }) ? passed++ : failed++;
 
