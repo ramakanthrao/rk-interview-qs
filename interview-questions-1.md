@@ -164,3 +164,66 @@ typeof item === 'object' // for object check
 2. Edge cases (empty array, single element, null)
 3. Priority tests (array vs object, number vs boolean)
 4. Regression tests for semantic values (Yes/No/TRUE/FALSE)
+
+## Samples 
+
+
+
+```
+
+Input: [1, "No", 0, "yes", true]
+Output: [ true, false, false, true, true ]
+Type: boolean
+Schema: {
+  '$schema': 'http://json-schema.org/draft-07/schema#',
+  type: 'array',
+  items: { type: 'boolean' }
+}
+
+---
+Input: [11, [1, 2], {value: "hey"}]
+Output: [ [ 11 ], [ 1, 2 ], [ { value: 'hey' } ] ]
+Type: array
+Schema: {
+  '$schema': 'http://json-schema.org/draft-07/schema#',
+  type: 'array',
+  items: { type: 'array' }
+}
+
+---
+Input: [0, 11, true, 0, false]
+Output: [ 0, 11, 1, 0, 0 ]
+Type: number
+Schema: {
+  '$schema': 'http://json-schema.org/draft-07/schema#',
+  type: 'array',
+  items: { type: 'number' }
+}
+
+---
+Input: [1, {sample: 11}, false, "Hello"]
+Output: [
+  { sample: '1' },
+  { sample: 11 },
+  { sample: 'false' },
+  { sample: 'hello' }
+]
+Type: object
+Schema: {
+  '$schema': 'http://json-schema.org/draft-07/schema#',
+  type: 'array',
+  items: { type: 'object', properties: { sample: [Object] } }
+}
+
+---
+Input: ["hello", "world", "test"]
+Output: [ 'hello', 'world', 'test' ]
+Type: string
+Schema: {
+  '$schema': 'http://json-schema.org/draft-07/schema#',
+  type: 'array',
+  items: { type: 'string' }
+}
+
+
+```
